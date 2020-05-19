@@ -26,10 +26,10 @@ UKF::UKF() {
   P_ = MatrixXd(5, 5);
 
   // Process noise standard deviation longitudinal acceleration in m/s^2
-  std_a_ = 30;
+  std_a_ = 2.0;
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 30;
+  std_yawdd_ = 1.0;
   
   /**
    * DO NOT MODIFY measurement noise values below.
@@ -70,7 +70,7 @@ UKF::UKF() {
   n_aug_ = 7;
 
   // set sigma points number
-  n_sig_ = 2* n_aug_ + 1;
+  n_sig_ = 2 * n_aug_ + 1;
 
   //create sigma point matrix
   Xsig_pred_ = MatrixXd(n_x_, n_sig_);
@@ -127,12 +127,6 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
      * Remember: you'll need to convert radar from polar to cartesian coordinates.
     */
 
-    P_ << 1, 0, 0, 0, 0,
-          0, 1, 0, 0, 0,
-          0, 0, 1, 0, 0,
-          0, 0, 0, 1, 0,
-          0, 0, 0, 0, 1;
-
     if (meas_package.sensor_type_ == MeasurementPackage::RADAR) {
       /**
        * Convert radar from polar to cartesian coordinates and initialize state.
@@ -148,6 +142,12 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
       double v = sqrt(vx * vx + vy * vy); // velocity
       
       x_ << px, py, v, 0, 0;
+
+      P_ << std_radr_*std_radr_, 0, 0, 0, 0,
+            0, std_radr_*std_radr_, 0, 0, 0,
+            0, 0, std_radrd_*std_radrd_, 0, 0,
+            0, 0, 0, std_radphi_*std_radphi_, 0,
+            0, 0, 0, 0, 1;
     } // MeasurementPackage::RADAR
     else if (meas_package.sensor_type_ == MeasurementPackage::LASER){
       /**
@@ -158,6 +158,12 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
       double py = meas_package.raw_measurements_[1]; // position y
 
       x_ << px, py, 0, 0, 0;
+
+      P_ << std_laspx_*std_laspx_, 0, 0, 0, 0,
+            0, std_laspy_*std_laspy_, 0, 0, 0,
+            0, 0, 1, 0, 0, 
+            0, 0, 0, 1, 0,
+            0, 0, 0, 0, 1;
     } // MeasurementPackage::LASER
     else {
       std::cout << "Undefined measurement package." << std::endl;
