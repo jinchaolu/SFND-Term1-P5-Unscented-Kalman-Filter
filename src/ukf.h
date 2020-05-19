@@ -100,10 +100,10 @@ class UKF {
   int n_sig_;
   
   ///* Radar measurement noise covariance matrix
-  MatrixXd R_radar_;
+  Eigen::MatrixXd R_radar_;
 
   ///* Lidar measurement noise covariance matrix
-  MatrixXd R_lidar_;
+  Eigen::MatrixXd R_lidar_;
 
   ///* the current NIS for laser
   double NIS_laser_;

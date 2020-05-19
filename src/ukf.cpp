@@ -1,6 +1,11 @@
 #include "ukf.h"
 #include "Eigen/Dense"
 
+/*
+ * STUNDENT INCLUDE LIBRARIES
+ */
+#include <iostream>
+
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
@@ -81,7 +86,7 @@ UKF::UKF() {
   weights_ = VectorXd(n_sig_);
     
   weights_.fill(0.5 / (lambda_ + n_aug_));
-  weights(0) = lambda_ / (lambda_ + n_aug_);
+  weights_(0) = lambda_ / (lambda_ + n_aug_);
 
   // Create lidar covariance matrix
   R_lidar_ = MatrixXd(2, 2);
@@ -155,7 +160,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
       x_ << px, py, 0, 0, 0;
     } // MeasurementPackage::LASER
     else {
-      cout << "Undefined measurement package." << endl;
+      std::cout << "Undefined measurement package." << std::endl;
     }
 
     // Initial measurement timestamp
@@ -193,7 +198,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
     UpdateLidar(meas_package);
   }
   else {
-    cout << "Undefined measurement package." << endl;
+    std::cout << "Undefined measurement package." << std::endl;
   }
 }
 
@@ -300,7 +305,7 @@ void UKF::Prediction(double delta_t) {
   // TODO : Normalize angles
 
   // Predict state mean
-  x_ += Xsig_pred_ * weights_;
+  x_ = Xsig_pred_ * weights_;
 
   // Predict state covariance matrix
   P_.fill(0.0);
