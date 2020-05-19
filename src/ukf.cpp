@@ -98,6 +98,93 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
    * TODO: Complete this function! Make sure you switch between lidar and radar
    * measurements.
    */
+
+  /*****************************************************************************
+   *  Initialization
+   ****************************************************************************/
+  // TODO : Check if data is initialized ?
+
+  if (!is_initialized_) {
+    /**
+     * TODO:
+     * Initialize the state ekf_.x_ with the first measurement.
+     * Create the covariance matrix.
+     * Remember: you'll need to convert radar from polar to cartesian coordinates.
+    */
+
+    P_ << 1, 0, 0, 0, 0,
+          0, 1, 0, 0, 0,
+          0, 0, 1, 0, 0,
+          0, 0, 0, 1, 0,
+          0, 0, 0, 0, 1;
+
+    if (meas_package.sensor_type_ == MeasurementPackage::RADAR) {
+      /**
+       * Convert radar from polar to cartesian coordinates and initialize state.
+       */
+      double rho = meas_package.raw_measurements_[0]; // range
+      double phi = meas_package.raw_measurements_[1]; // bearing
+      double rho_dot = meas_package.raw_measurements_[2]; // velocity of rho
+
+      double px = rho * cos(phi); // position x
+      double py = rho * sin(phi); // position y
+      double vx = rho_dot * cos(phi); // velocity x
+      double vy = rho_dot * sin(phi); // velocity y
+      double v = sqrt(vx * vx + vy * vy); // velocity
+      
+      x_ << px, py, v, 0, 0;
+    } // MeasurementPackage::RADAR
+    else if (meas_package.sensor_type_ == MeasurementPackage::LASER){
+      /**
+       * Initialize state.
+       */
+
+      double px = meas_package.raw_measurements_[0]; // position x
+      double py = meas_package.raw_measurements_[1]; // position y
+
+      x_ << px, py, 0, 0, 0;
+    } // MeasurementPackage::LASER
+    else {
+      cout << "Undefined measurement package." << endl;
+    }
+
+    // Initial measurement timestamp
+    time_us_ = meas_package.timestamp_;
+    
+    // done initializing, no need to predict or update
+    is_initialized_ = true;
+
+    return;
+  } // is_initialized_ 
+
+  /*****************************************************************************
+   *  Prediction
+   ****************************************************************************/
+  // TODO : Call predition step with calculated time interval
+
+  // Calculate time interval dt
+  double dt = (meas_package.timestamp_ - time_us_) / 1000000.0;
+
+  // Update measurement timestamp  
+  time_us_ = meas_package.timestamp_;
+
+  // Call prediction
+  Prediction(dt);
+
+  /*****************************************************************************
+   *  Update
+   ****************************************************************************/
+  // TODO : Call update step with given senser type
+	
+  if (meas_package.sensor_type_ == MeasurementPackage::RADAR && use_radar_) {
+    UpdateRadar(meas_package);
+  }
+  else if (meas_package.sensor_type_ == MeasurementPackage::LASER && use_laser_) {
+    UpdateLidar(meas_package);
+  }
+  else {
+    cout << "Undefined measurement package." << endl;
+  }
 }
 
 void UKF::Prediction(double delta_t) {
