@@ -99,11 +99,17 @@ class UKF {
   // Sigma points number
   int n_sig_;
   
-  ///* the current NIS for radar
-  double NIS_radar_;
+  ///* Radar measurement noise covariance matrix
+  MatrixXd R_radar_;
+
+  ///* Lidar measurement noise covariance matrix
+  MatrixXd R_lidar_;
 
   ///* the current NIS for laser
   double NIS_laser_;
+  
+  ///* the current NIS for radar
+  double NIS_radar_;
 };
 
 #endif  // UKF_H
