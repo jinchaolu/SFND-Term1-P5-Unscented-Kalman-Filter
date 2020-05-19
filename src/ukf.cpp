@@ -54,6 +54,41 @@ UKF::UKF() {
    * TODO: Complete the initialization. See ukf.h for other member properties.
    * Hint: one or more values initialized above might be wildly off...
    */
+
+  // initially set to false, set to true in first call of ProcessMeasurement
+  is_initialized_ = false;
+
+  // set state dimension
+  n_x_ = 5;
+
+  // set augmented dimension
+  n_aug_ = 7;
+
+  // set sigma points number
+  n_sig_ = 2* n_aug_ + 1;
+
+  //create sigma point matrix
+  Xsig_pred_ = MatrixXd(n_x_, N_sig_);
+  Xsig_pred_.fill(0.0);
+
+  //set measurement dimension, radar can measure r, phi, and r_dot
+  int n_z = 3;
+
+  //define spreading parameter
+  lambda_ = 3 - n_aug_;
+
+  //set vector for weights
+  weights_ = VectorXd(n_sig_);
+    
+  weights_.fill(0.5 / (lambda_ + n_aug_));
+  weights(0) = lambda_ / (lambda_ + n_aug_);
+
+  ///* the current NIS for radar
+  NIS_radar_ = 0.0;
+
+  ///* the current NIS for laser
+  NIS_laser_ = 0.0;
+
 }
 
 UKF::~UKF() {}
