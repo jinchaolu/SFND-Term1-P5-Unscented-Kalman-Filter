@@ -1,18 +1,22 @@
 # SFND-Term1-P5-Unscented-Kalman-Filter
 Project 5 of Udacity Sensor Fusion Nanodegree
 
-<img src="src/Term1-Project5-Unscented-Kalman-Filter.gif" width="700" height="400" />
+<img src="videos/Term1-Project5-Unscented-Kalman-Filter.gif" width="700" height="400" />
 
-## (TODO)Overview  
-In this project you will implement an Unscented Kalman Filter to estimate the state of multiple cars on a highway using noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
+## Overview  
+In this project, you will implement an Unscented Kalman Filter in C++ script to estimate the state of multiple cars on a highway using noisy Lidar and RADAR measurements.  
 
-The main program can be built and ran by doing the following from the project top directory.
+You will learn what is and how to apply Unscented Kalman Filter algorithm for object tracking with noisy measurements from different sensors like camera, Lidar and RADAR.  
 
-1. mkdir build
-2. cd build
-3. cmake ..
-4. make
-5. ./ukf_highway
+First, you will need to initialize your parameters including the sigma points size, lambda, state mean and covariance matrix, noisy sensor measurement convariance matrix and so on.  
+
+Then, you will complete your measurement process function to define your Unscented Kalman Filter workflow.  
+
+Next, you will complete your prediction function to predict the next state mean and convariance  with the current measurement package and previous state.  
+
+Finally, you will complete two functions to process measurement package coming from Lidar and RADAR in order to update the next state mean and convariance matrix.  
+
+You will evaluate your algorithm performance by obtaining RMSE values lower than the desired tolerance given by the [project rubric]((/README.md#L841)) below.  
 
 Note that the programs that need to be written to accomplish the project are src/ukf.cpp, and src/ukf.h
 
@@ -44,7 +48,7 @@ The red spheres above cars represent the (x,y) lidar detection and the purple li
 
 ## Setup Instructions (abbreviated)  
 
-Meet the [`Prerequisites/Dependencies`](/README.md#L32)  
+Meet the [`Prerequisites/Dependencies`](/README.md#L36)  
 
 ### Ubuntu 
 
@@ -95,6 +99,8 @@ change how measurements are taken, for instance lidar markers could be the (x,y)
 and performing clustering. This is similar to what was done in Sensor Fusion Lidar Obstacle Detection.
 
 ## (TODO)Project Description  
+Directory Structure
+```
 .SFND-Term1-P5-Unscented-Kalman-Filter
 ├── CMakeLists.txt
 ├── media
@@ -782,6 +788,19 @@ and performing clustering. This is similar to what was done in Sensor Fusion Lid
 └── videos
     ├── Term1-Project5-Unscented-Kalman-Filter.gif
     └── Term1-Project5-Unscented-Kalman-Filter.mp4
+```
+
+- [CMakeLists.txt](/src/CMakeLists.txt): File to link the C++ code to libraries.  
+- [environment.cpp](/src/environment.cpp): C++ script, render car's surrouding environment for visualization  
+- [processPointClouds.cpp](/src/processPointClouds.cpp): C++ script, process Lidar data for visualization  
+- [processPointClouds.h](/src/processPointClouds.h): Header file, define libraries and functions for processPointClouds.cpp  
+- [cluster.cpp](/src/quiz/cluster/cluster.cpp): C++ script, practice your skill on clustering the given point clouds into groups  
+- [kdtree.h](/src/quiz/cluster/kdtree.h): Header file, define libraries and functions for KD tree  
+- [ransac2d.cpp](/src/quiz/ransac/ransac2d.cpp): C++ script, practice your skill to compute random sample consensus on point clouds on a 2D plane  
+- [box.h](/src/render/box.h): Header file, define libraries and functions for drawing 3D box in the environment  
+- [render.cpp](/src/render/render.cpp): C++ script, define functions that rendering point clouds and other objects  
+- [render.h](/src/render/render.h): Header file, define libraries and functions for render.cpp  
+- [lidar.h](/src/sensors/lidar.h): Header file, define libraries and functions for given Lidar sensor  
 
 ## Run the project  
 * Clone this repository  
