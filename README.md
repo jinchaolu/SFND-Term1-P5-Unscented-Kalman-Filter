@@ -1,8 +1,9 @@
-# SFND_Unscented_Kalman_Filter
-Sensor Fusion UKF Highway Project Starter Code
+# SFND-Term1-P5-Unscented-Kalman-Filter
+Project 5 of Udacity Sensor Fusion Nanodegree
 
-<img src="media/ukf_highway_tracked.gif" width="700" height="400" />
+<img src="src/Term1-Project5-Unscented-Kalman-Filter.gif" width="700" height="400" />
 
+## (TODO)Overview  
 In this project you will implement an Unscented Kalman Filter to estimate the state of multiple cars on a highway using noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
 
 The main program can be built and ran by doing the following from the project top directory.
@@ -28,7 +29,7 @@ The red spheres above cars represent the (x,y) lidar detection and the purple li
 
 ---
 
-## Other Important Dependencies
+## Prerequisites/Dependencies  
 * cmake >= 3.5
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
 * make >= 4.1 (Linux, Mac), 3.81 (Windows)
@@ -41,15 +42,88 @@ The red spheres above cars represent the (x,y) lidar detection and the purple li
   * Windows: recommend using [MinGW](http://www.mingw.org/)
  * PCL 1.2
 
-## Basic Build Instructions
+## Setup Instructions (abbreviated)  
 
-1. Clone this repo.
-2. Make a build directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make`
-4. Run it: `./ukf_highway`
+Meet the [`Prerequisites/Dependencies`](/README.md#L32)  
 
-## Editor Settings
+### Ubuntu 
 
+```bash
+$> sudo apt install libpcl-dev
+```
+
+### Windows 
+
+http://www.pointclouds.org/downloads/windows.html
+
+### MAC
+
+#### Install via Homebrew
+1. install [homebrew](https://brew.sh/)
+2. update homebrew 
+	```bash
+	$> brew update
+	```
+3. add  homebrew science [tap](https://docs.brew.sh/Taps) 
+	```bash
+	$> brew tap brewsci/science
+	```
+4. view pcl install options
+	```bash
+	$> brew options pcl
+	```
+5. install PCL 
+	```bash
+	$> brew install pcl
+	```
+
+#### Prebuilt Binaries via Universal Installer
+http://www.pointclouds.org/downloads/macosx.html  
+NOTE: very old version 
+
+#### Build from Source
+
+[PCL Source Github](https://github.com/PointCloudLibrary/pcl)
+
+[PCL Mac Compilation Docs](http://www.pointclouds.org/documentation/tutorials/compiling_pcl_macosx.php)  
+
+## Generating Additional Data  
+This is optional!
+
+If you'd like to generate your own radar and lidar modify the code in `highway.h` to alter the cars. Also check out `tools.cpp` to
+change how measurements are taken, for instance lidar markers could be the (x,y) center of bounding boxes by scanning the PCD environment
+and performing clustering. This is similar to what was done in Sensor Fusion Lidar Obstacle Detection.
+
+## (TODO)Project Description  
+## Run the project  
+* Clone this repository  
+```
+git clone https://github.com/jinchaolu/SFND-Term1-P5-Unscented-Kalman-Filter.git
+```
+* Navigate to the `SFND-Term1-P5-Unscented-Kalman-Filter` folder  
+```
+cd SFND-Term1-P1-Lidar-Obstacle-Detection
+```
+* Create and open `build` folder  
+```
+mkdir build && cd build
+```
+* Compile your code  
+```
+cmake .. && make
+```
+* Run `ukf_highway` application  
+```
+./ukf_highway
+```
+
+## Tips  
+1. It's recommended to update and upgrade your environment before running the code.  
+```
+sudo apt-get update && sudo apt-get upgrade -y
+```
+
+## Editor Settings  
 We've purposefully kept editor configuration files out of this repo in order to
 keep it as simple and environment agnostic as possible. However, we recommend
 using the following settings:
@@ -57,20 +131,22 @@ using the following settings:
 * indent using spaces
 * set tab width to 2 spaces (keeps the matrices in source code aligned)
 
-## Code Style
+## Code Style  
+Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).  
 
-Please stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html) as much as possible.
+## Project Rubric  
+### 1. Compiling and Testing  
+#### 1.1 The submission must compile.  
+Yes, it does compile.  
 
-## Generating Additional Data
+### 2. Code Efficiency  
+#### 2.1 The methods in the code should avoid unnecessary calculations.  
+Yes, it does.  
 
-This is optional!
+### 3. Accuracy
+#### 3.1 px, py, vx, vy output coordinates must have an RMSE <= [0.30, 0.16, 0.95, 0.70] after running for longer than 1 second.  
+Yes, it does.  
 
-If you'd like to generate your own radar and lidar modify the code in `highway.h` to alter the cars. Also check out `tools.cpp` to
-change how measurements are taken, for instance lidar markers could be the (x,y) center of bounding boxes by scanning the PCD environment
-and performing clustering. This is similar to what was done in Sensor Fusion Lidar Obstacle Detection.
-
-## Project Instructions and Rubric
-
-This information is only accessible by people who are already enrolled in Sensor Fusion. 
-If you are enrolled, see the project page in the classroom
-for instructions and the project rubric.
+### 4. Follows the Correct Algorithm
+#### 4.1 Your Sensor Fusion algorithm follows the general processing flow as taught in the preceding lessons.  
+Yes, it does.  
