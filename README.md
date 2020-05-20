@@ -16,7 +16,7 @@ Next, you will complete your prediction function to predict the next state mean 
 
 Finally, you will complete two functions to process measurement package coming from Lidar and RADAR in order to update the next state mean and convariance matrix.  
 
-You will evaluate your algorithm performance by obtaining RMSE values lower than the desired tolerance given by the [project rubric]((/README.md#L841)) below.  
+You will evaluate your algorithm performance by obtaining RMSE values lower than the desired tolerance given by the [project rubric](/README.md#L845) below.  
 
 Note that the programs that need to be written to accomplish the project are src/ukf.cpp, and src/ukf.h
 
