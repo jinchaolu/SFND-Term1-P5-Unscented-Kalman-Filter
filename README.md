@@ -98,17 +98,17 @@ If you'd like to generate your own radar and lidar modify the code in `highway.h
 change how measurements are taken, for instance lidar markers could be the (x,y) center of bounding boxes by scanning the PCD environment
 and performing clustering. This is similar to what was done in Sensor Fusion Lidar Obstacle Detection.
 
-## (TODO)Project Description  
+## Project Description  
 Directory Structure
 ```
-.SFND-Term1-P5-Unscented-Kalman-Filter
-├── CMakeLists.txt
-├── media
+.SFND-Term1-P5-Unscented-Kalman-Filter                  # Unscented Kalman Filter Project
+├── CMakeLists.txt                                      # compiler instructions
+├── media                                               # media files
 │   ├── ukf_highway.png
 │   └── ukf_highway_tracked.gif
-├── README.md
+├── README.md                                           # Readme file
 ├── src
-│   ├── Eigen
+│   ├── Eigen                                           # Eigen library
 │   │   ├── Array
 │   │   ├── Cholesky
 │   │   ├── CholmodSupport
@@ -471,14 +471,14 @@ Directory Structure
 │   │   ├── SVD
 │   │   └── UmfPackSupport
 │   ├── highway.h
-│   ├── main.cpp
-│   ├── measurement_package.h
-│   ├── render
-│   │   ├── box.h
-│   │   ├── render.cpp
-│   │   └── render.h
-│   ├── sensors
-│   │   ├── data
+│   ├── main.cpp                                        # Render car's surrouding environment for visualization
+│   ├── measurement_package.h                           # Define classes, libraries and functions for ukf.cpp and ukf.h
+│   ├── render                                          # Render functions
+│   │   ├── box.h                                       # Draw 3D box around the point clouds
+│   │   ├── render.cpp                                  # Render point clouds and other objects
+│   │   └── render.h                                    # Define classes, libraries and functions for render.cpp
+│   ├── sensors                                         # Sensor data
+│   │   ├── data                                        # Recorded Lidar data
 │   │   │   └── pcd
 │   │   │       ├── highway_0.pcd
 │   │   │       ├── highway_1000000.pcd
@@ -780,27 +780,28 @@ Directory Structure
 │   │   │       ├── highway_9900000.pcd
 │   │   │       ├── highway_9933333.pcd
 │   │   │       └── highway_9966666.pcd
-│   │   └── lidar.h
-│   ├── tools.cpp
-│   ├── tools.h
-│   ├── ukf.cpp
-│   └── ukf.h
+│   │   └── lidar.h                                     # Lidar sensor definition, header file
+│   ├── tools.cpp                                       # Sense the car, calculate results and display the data and results, source file
+│   ├── tools.h                                         # Sense the car, calculate results and display the data and results, source file
+│   ├── ukf.cpp                                         # Run unscented kalman filter algorithm, source file
+│   └── ukf.h                                           # Define unscented kalman filter algorithm, header file
 └── videos
     ├── Term1-Project5-Unscented-Kalman-Filter.gif
     └── Term1-Project5-Unscented-Kalman-Filter.mp4
 ```
 
 - [CMakeLists.txt](/src/CMakeLists.txt): File to link the C++ code to libraries.  
-- [environment.cpp](/src/environment.cpp): C++ script, render car's surrouding environment for visualization  
-- [processPointClouds.cpp](/src/processPointClouds.cpp): C++ script, process Lidar data for visualization  
-- [processPointClouds.h](/src/processPointClouds.h): Header file, define libraries and functions for processPointClouds.cpp  
-- [cluster.cpp](/src/quiz/cluster/cluster.cpp): C++ script, practice your skill on clustering the given point clouds into groups  
-- [kdtree.h](/src/quiz/cluster/kdtree.h): Header file, define libraries and functions for KD tree  
-- [ransac2d.cpp](/src/quiz/ransac/ransac2d.cpp): C++ script, practice your skill to compute random sample consensus on point clouds on a 2D plane  
-- [box.h](/src/render/box.h): Header file, define libraries and functions for drawing 3D box in the environment  
+- [main.cpp](/src/main.cpp): C++ script, render car's surrouding environment for visualization  
+- [highway.h](/src/highway.h): Header file, define classes, libraries and functions for main.cpp  
+- [measurement_package.h](/src/measurement_package.h): Header file, define classes, libraries and functions for ukf.cpp and ukf.h  
+- [ukf.cpp](/src/ukf.cpp): C++ script, define unscented kalman filter algorithm to process the measurement package coming from Lidar and RADAR sensor then update the state mean and covariance matrix  
+- [ukf.h](/src/ukf.h): Header file, define classes, libraries and functions for ukf.cpp  
+- [tools.cpp](/src/tools.cpp): C++ script, define functions to sense the car location using Lidar or RADAR measurement, show the unscented kalman filter results, calculate the RMSE result for evaluation and display point cloud from the database  
+- [tools.h](/src/tools.h): Header file, define classes, libraries and functions for tools.cpp  
+- [box.h](/src/render/box.h): Header file, define classes, libraries and functions for drawing 3D box in the environment  
 - [render.cpp](/src/render/render.cpp): C++ script, define functions that rendering point clouds and other objects  
-- [render.h](/src/render/render.h): Header file, define libraries and functions for render.cpp  
-- [lidar.h](/src/sensors/lidar.h): Header file, define libraries and functions for given Lidar sensor  
+- [render.h](/src/render/render.h): Header file, define classes, libraries and functions for render.cpp  
+- [lidar.h](/src/sensors/lidar.h): Header file, define classes, libraries and functions for given Lidar sensor  
 
 ## Run the project  
 * Clone this repository  
@@ -809,7 +810,7 @@ git clone https://github.com/jinchaolu/SFND-Term1-P5-Unscented-Kalman-Filter.git
 ```
 * Navigate to the `SFND-Term1-P5-Unscented-Kalman-Filter` folder  
 ```
-cd SFND-Term1-P1-Lidar-Obstacle-Detection
+cd SFND-Term1-P5-Unscented-Kalman-Filter
 ```
 * Create and open `build` folder  
 ```
